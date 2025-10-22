@@ -20,6 +20,11 @@ import { safeParse } from '@stoplight/json'
 import { isObject } from './objects'
 
 export const GLOBAL_DIFF_META_KEY = Symbol('diffMeta')
+export const GLOBAL_AGGREGATED_DIFFS_META_KEY = Symbol('aggregatedDiffsMeta')
+export const GLOBAL_META_KEYS = {
+  diffsMetaKey: GLOBAL_DIFF_META_KEY,
+  aggregatedDiffsMetaKey: GLOBAL_AGGREGATED_DIFFS_META_KEY,
+}
 
 //todo copy-paste from ADV and builder
 export const getJsonValue = (source: unknown, ...path: PropertyKey[]): unknown => {
