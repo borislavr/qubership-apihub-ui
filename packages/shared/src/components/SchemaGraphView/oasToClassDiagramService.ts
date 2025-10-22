@@ -26,7 +26,6 @@ import {
   type SchemaRelation,
 } from './schema-graph-content'
 import type {
-  DeferredHash,
   DenormalizeOptions,
   Hash,
   NormalizeOptions,
@@ -124,7 +123,7 @@ export function calculateTolerantHash(schema: OpenAPIV3.SchemaObject | OpenAPIV3
   if (!(VISITOR_FLAG_HASH in schema)) {
     throw Error('Tolerant hash is not defined')
   }
-  return (schema[VISITOR_FLAG_HASH] as DeferredHash)()
+  return schema[VISITOR_FLAG_HASH] as string
 }
 
 export type HashWithTitle = `${Hash}${string}`
@@ -367,7 +366,7 @@ export function transformOasToEffectiveClassDiagram(
   const options: NormalizeOptions = {
     syntheticTitleFlag: VISITOR_FLAG_TITLE,
     originsFlag: VISITOR_FLAG_ORIGINS,
-    hashFlag: VISITOR_FLAG_HASH,
+    semanticHashProperty: VISITOR_FLAG_HASH,
     defaultsFlag: VISITOR_FLAG_DEFAULTS,
     inlineRefsFlag: VISITOR_FLAG_INLINE_REFS,
     unify: true,
@@ -377,7 +376,7 @@ export function transformOasToEffectiveClassDiagram(
   const invertOptions: DenormalizeOptions = {
     ...options,
     originsAlreadyDefined: true,
-    hashFlag: undefined,
+    semanticHashProperty: undefined,
     ignoreSymbols: [VISITOR_FLAG_HASH, VISITOR_FLAG_INLINE_REFS],
   }
   delete invertOptions.inlineRefsFlag
