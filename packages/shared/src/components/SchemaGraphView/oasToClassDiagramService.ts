@@ -55,7 +55,7 @@ import { isArray } from 'lodash-es'
 import {
   resolveSharedSchemaNames,
   VISITOR_FLAG_DEFAULTS,
-  VISITOR_FLAG_HASH,
+  VISITOR_SEMANTIC_HASH_PROPERTY,
   VISITOR_FLAG_INLINE_REFS,
   VISITOR_FLAG_ORIGINS,
   VISITOR_FLAG_TITLE,
@@ -120,10 +120,10 @@ const propertyTypeNmr: (schema: OpenAPIV3.SchemaObject) => string =
   (schema) => schema.title ?? collectCombinerNames(schema) ?? (schema.format && schema.type ? `${schema.type}<${schema.format}>` : undefined) ?? (schema.type) ?? 'unknown'
 
 export function calculateTolerantHash(schema: OpenAPIV3.SchemaObject | OpenAPIV3.ParameterObject): string {
-  if (!(VISITOR_FLAG_HASH in schema)) {
+  if (!(VISITOR_SEMANTIC_HASH_PROPERTY in schema)) {
     throw Error('Tolerant hash is not defined')
   }
-  return schema[VISITOR_FLAG_HASH] as string
+  return schema[VISITOR_SEMANTIC_HASH_PROPERTY] as string
 }
 
 export type HashWithTitle = `${Hash}${string}`
@@ -366,7 +366,7 @@ export function transformOasToEffectiveClassDiagram(
   const options: NormalizeOptions = {
     syntheticTitleFlag: VISITOR_FLAG_TITLE,
     originsFlag: VISITOR_FLAG_ORIGINS,
-    semanticHashProperty: VISITOR_FLAG_HASH,
+    semanticHashProperty: VISITOR_SEMANTIC_HASH_PROPERTY,
     defaultsFlag: VISITOR_FLAG_DEFAULTS,
     inlineRefsFlag: VISITOR_FLAG_INLINE_REFS,
     unify: true,
@@ -377,7 +377,7 @@ export function transformOasToEffectiveClassDiagram(
     ...options,
     originsAlreadyDefined: true,
     semanticHashProperty: undefined,
-    ignoreSymbols: [VISITOR_FLAG_HASH, VISITOR_FLAG_INLINE_REFS],
+    ignoreSymbols: [VISITOR_SEMANTIC_HASH_PROPERTY, VISITOR_FLAG_INLINE_REFS],
   }
   delete invertOptions.inlineRefsFlag
   const cycledJsoSpec = denormalize(normalize(document, options), invertOptions)

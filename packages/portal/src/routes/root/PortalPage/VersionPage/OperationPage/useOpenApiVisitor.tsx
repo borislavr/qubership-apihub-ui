@@ -41,7 +41,7 @@ import {
 import {
   resolveSharedSchemaNames,
   VISITOR_FLAG_DEFAULTS,
-  VISITOR_FLAG_HASH,
+  VISITOR_SEMANTIC_HASH_PROPERTY,
   VISITOR_FLAG_INLINE_REFS,
   VISITOR_FLAG_ORIGINS,
   VISITOR_FLAG_TITLE,
@@ -70,7 +70,7 @@ export function useOpenApiVisitor(operationData: object | undefined): OpenApiDat
     const options: NormalizeOptions = {
       syntheticTitleFlag: VISITOR_FLAG_TITLE,
       originsFlag: VISITOR_FLAG_ORIGINS,
-      semanticHashProperty: VISITOR_FLAG_HASH,
+      semanticHashProperty: VISITOR_SEMANTIC_HASH_PROPERTY,
       defaultsFlag: VISITOR_FLAG_DEFAULTS,
       inlineRefsFlag: VISITOR_FLAG_INLINE_REFS,
       unify: true,
@@ -81,7 +81,7 @@ export function useOpenApiVisitor(operationData: object | undefined): OpenApiDat
       ...options,
       originsAlreadyDefined: true,
       semanticHashProperty: undefined,
-      ignoreSymbols: [VISITOR_FLAG_HASH, VISITOR_FLAG_INLINE_REFS],
+      ignoreSymbols: [VISITOR_SEMANTIC_HASH_PROPERTY, VISITOR_FLAG_INLINE_REFS],
     }
     delete invertOptions.inlineRefsFlag
     const normalizedSpec = denormalize(normalize(operationData, options), invertOptions) as Record<PropertyKey, unknown>

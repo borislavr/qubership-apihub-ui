@@ -73,7 +73,7 @@ export function calculateClassName(value: OpenAPIV3.SchemaObject): string {
 export const VISITOR_FLAG_TITLE = Symbol('$title')
 export const VISITOR_FLAG_DEFAULTS = Symbol('$defaults')
 export const VISITOR_FLAG_ORIGINS = Symbol('$origins')
-export const VISITOR_FLAG_HASH = Symbol('$hash')
+export const VISITOR_SEMANTIC_HASH_PROPERTY = Symbol('$semantic-hash')
 export const VISITOR_FLAG_INLINE_REFS = Symbol('$inline')
 
 export const resolveSharedSchemaNames: (schema: OpenAPIV3.SchemaObject) => string[] | undefined = (schema) => {
