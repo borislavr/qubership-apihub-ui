@@ -70,7 +70,7 @@ export function useOpenApiVisitor(operationData: object | undefined): OpenApiDat
     const options: NormalizeOptions = {
       syntheticTitleFlag: VISITOR_FLAG_TITLE,
       originsFlag: VISITOR_FLAG_ORIGINS,
-      hashFlag: VISITOR_FLAG_HASH,
+      semanticHashProperty: VISITOR_FLAG_HASH,
       defaultsFlag: VISITOR_FLAG_DEFAULTS,
       inlineRefsFlag: VISITOR_FLAG_INLINE_REFS,
       unify: true,
@@ -80,7 +80,7 @@ export function useOpenApiVisitor(operationData: object | undefined): OpenApiDat
     const invertOptions: DenormalizeOptions = {
       ...options,
       originsAlreadyDefined: true,
-      hashFlag: undefined,
+      semanticHashProperty: undefined,
       ignoreSymbols: [VISITOR_FLAG_HASH, VISITOR_FLAG_INLINE_REFS],
     }
     delete invertOptions.inlineRefsFlag
