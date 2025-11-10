@@ -28,6 +28,7 @@ import { CSSProperties } from '@mui/material/styles/createTypography'
 import { Theme } from '@mui/material'
 import { Context } from 'react'
 import { FetchErrorDetails, FetchRedirectDetails } from '../src/utils'
+import type { SystemConfigurationDto } from './types/system-configuration'
 
 declare module 'react' {
   function createContext<T>(): Context<T>
@@ -88,6 +89,10 @@ declare module '@mui/material/Chip' {
     // Personal Access Tokens
     active: true
     expired: true
+    // Validation Ruleset Status
+    rulesetSpecType: true
+    rulesetActive: true
+    rulesetInactive: true
   }
 
   interface ChipPropsVariantOverrides {
@@ -115,6 +120,11 @@ declare global {
     addEventListener<K extends keyof CustomEventMap>(type: K, listener: (this: Document, ev: CustomEventMap[K]) => void): void
 
     removeEventListener<K extends keyof CustomEventMap>(type: K, listener: (this: Document, ev: CustomEventMap[K]) => void): void
+  }
+
+  interface WorkerGlobalScope {
+    lastIdentityProviderId: string | undefined | null
+    systemConfigurationDto: SystemConfigurationDto | undefined
   }
 }
 
